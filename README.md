@@ -28,6 +28,6 @@ And run server:
 ```bash
 npm run server:nodemon
 # or
-yarn server
+yarn server:nodemon
 ```
 

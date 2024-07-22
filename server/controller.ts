@@ -1,6 +1,8 @@
-const {nanoid} = require("@reduxjs/toolkit");
-
-let db = [
+const db: Array<{
+  id: string;
+  email: string;
+  number: string;
+}> = [
   {
     id: "qwe2131qwe",
     email: "jim@gmail.com",
@@ -34,14 +36,12 @@ let db = [
     number: "822286"
   }];
 
-const getAll = (req, res) => {
+export const getAll = (req, res) => {
+  console.log(db,req,res);
   res.status(200).json(db);
 };
 
-const filterUsers = (req, res) => {
+export const filterUsers = (req, res) => {
   const filteredMail = req.body.email;
-
   res.status(201).json({models: db.filter(({email}) => email === filteredMail)});
 };
-
-module.exports = {getAll, filterUsers};

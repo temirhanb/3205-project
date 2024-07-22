@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {IUser} from "../../../../store/slices/userList";
-import {useAppDispatch} from "../../../../store/hook";
 
 interface IProps {
   item: IUser;
@@ -8,6 +7,7 @@ interface IProps {
 
 export const ContentTable: React.FC<IProps> = ({item}) => {
 
+  const numberMusk = String(item.number).replace(/.{1,2}/g, "$&-").slice(0, -1);
   return (
     <tr
       className={
@@ -19,7 +19,7 @@ export const ContentTable: React.FC<IProps> = ({item}) => {
         {item.email}
       </td>
       <td>
-        {item.number}
+        {numberMusk}
       </td>
     </tr>
   );

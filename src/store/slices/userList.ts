@@ -6,7 +6,7 @@ import {StatusRequest} from "../../shared";
 export interface IUser {
   id: string;
   email: string;
-  number: string;
+  number: number;
 }
 
 export interface IInitialState {
@@ -30,7 +30,7 @@ export const userListSlice = createSlice({
       state.status = StatusRequest.LOADING;
       state.todos = [];
     });
-    builder.addCase(fetchUserThunk.rejected, (state, action) => {
+    builder.addCase(fetchUserThunk.rejected, (state) => {
       state.status = StatusRequest.ERROR;
       state.todos = [];
     });
@@ -43,7 +43,7 @@ export const userListSlice = createSlice({
       state.status = StatusRequest.LOADING;
 
     });
-    builder.addCase(createTodosThunk.rejected, (state, action) => {
+    builder.addCase(createTodosThunk.rejected, (state) => {
       state.status = StatusRequest.ERROR;
     });
     builder.addCase(createTodosThunk.fulfilled, (state, action) => {

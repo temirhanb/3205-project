@@ -15,10 +15,18 @@ npm run dev
 yarn dev
 ```
 
-Run server:
+
+Open the folder "server":
 
 ```bash
-npm run server
+cd ./server
+```
+
+
+And run server:
+
+```bash
+npm run server:nodemon
 # or
 yarn server
 ```

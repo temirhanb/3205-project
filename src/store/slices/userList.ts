@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchUserThunk} from "../thunks/fetchUserThunk";
-import {createTodosThunk} from "../thunks/filterUserThunk";
+import {filterTodosThunk} from "../thunks/filterUserThunk";
 import {StatusRequest} from "../../shared";
 
 export interface IUser {
@@ -39,16 +39,16 @@ export const userListSlice = createSlice({
       state.todos = action.payload;
     });
 
-    builder.addCase(createTodosThunk.pending, (state) => {
+    builder.addCase(filterTodosThunk.pending, (state) => {
       state.status = StatusRequest.LOADING;
 
     });
-    builder.addCase(createTodosThunk.rejected, (state) => {
+    builder.addCase(filterTodosThunk.rejected, (state) => {
       state.status = StatusRequest.ERROR;
     });
-    builder.addCase(createTodosThunk.fulfilled, (state, action) => {
+    builder.addCase(filterTodosThunk.fulfilled, (state, action) => {
       state.status = StatusRequest.SUCCESS;
-      state.todos.push(action.payload);
+      state.todos = action.payload;
     });
   },
 });

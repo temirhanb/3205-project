@@ -22,7 +22,6 @@ Open the folder "server":
 cd ./server
 ```
 
-
 And run server:
 
 ```bash

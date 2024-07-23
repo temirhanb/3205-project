@@ -1,12 +1,22 @@
 import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { API } from "../../shared";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {API} from "../../shared";
 
-export const createTodosThunk = createAsyncThunk('todoList/create', async (name: string) => {
-  const {data} = await axios.post(API, {name}, {
-    headers: {
-      "Content-Type": 'application/json',
-    }
+export const filterTodosThunk = createAsyncThunk("users/filter",
+  async ({
+           email,
+           number
+         }: { email: string, number: number }) => {
+
+    const CancelToken = axios.CancelToken;
+
+    const source = CancelToken.source();
+    const dataReq = {email, number}
+    const {data} = await axios.post(API, dataReq, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cancelToken: source.token,
+    });
+    return data.models;
   });
-  return data.model;
-});

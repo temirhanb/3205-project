@@ -40,7 +40,14 @@ export const getAll = (req, res) => {
 };
 
 export const filterUsers = (req, res) => {
-  if (req.timeout) return;
   const filteredMail = req.body.email;
-  res.status(201).json({models: db.filter(({email}) => email === filteredMail)});
+  const filteredNumber = req.body.number;
+  res.status(201).json({
+    models: db.filter(({
+                         email,
+                         number
+                       }) => filteredNumber === 0
+      ? email === filteredMail
+      : email === filteredMail && String(number).includes(filteredNumber))
+  });
 };

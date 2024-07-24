@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import {InputMask} from "@react-input/mask";
 import {useAppDispatch} from "../../store/hook";
 import {filterTodosThunk} from "../../store/thunks/filterUserThunk";
+import {fetchUserThunk} from "../../store/thunks/fetchUserThunk";
 
 export const Filter: React.FC = () => {
 
@@ -18,12 +19,17 @@ export const Filter: React.FC = () => {
       email: Yup.string().email("Invalid email").required("Required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       const deleteMaskNumber = Number(values.number.split("-").join(""));
-
       dispatch(filterTodosThunk({email: values.email, number: deleteMaskNumber}));
     },
   });
+
+  const isEmptyEmail: boolean = formik.values.email === "";
+  const isEmptyNumber: boolean = formik.values.number === "";
+
+  const resetHandler = ()=>{
+    dispatch(fetchUserThunk());
+  }
 
   return (
     <form
@@ -53,12 +59,21 @@ export const Filter: React.FC = () => {
           className={"ml-5 rounded border-cyan-700 border-2 p-2"}
         />
       </div>
-      <button
-        type={"submit"}
-        className={"ml-10 rounded-md border-cyan-700 border-2 py-2 px-5 hover:border-cyan-500"}
-      >
-        <span>Submit</span>
-      </button>
+      {isEmptyEmail && isEmptyNumber?(
+        <button
+          onClick={resetHandler}
+          className={"ml-10 rounded-md border-cyan-700 border-2 py-2 px-5 hover:border-cyan-500"}
+        >
+          <span>Reset</span>
+        </button>
+      ):(
+        <button
+          type={"submit"}
+          className={"ml-10 rounded-md border-cyan-700 border-2 py-2 px-5 hover:border-cyan-500"}
+        >
+          <span>Submit</span>
+        </button>
+      )}
     </form>
   );
 };
